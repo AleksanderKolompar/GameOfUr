@@ -24,10 +24,14 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="GithubDefaultAccount">
     <option name="defaultAccountId" value="8a154453-9a29-4492-ba9b-0a53b043481a" />
   </component>
   <component name="ProjectId" id="1tdaGVIBBZREndJoLHrgeonRVIw" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -109,7 +113,7 @@
       <option name="presentableId" value="Default" />
       <updated>1623101324730</updated>
       <workItem from="1623101326365" duration="31243000" />
-      <workItem from="1623230363643" duration="2399000" />
+      <workItem from="1623230363643" duration="2609000" />
     </task>
     <servers />
   </component>
