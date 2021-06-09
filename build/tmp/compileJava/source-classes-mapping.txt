@@ -1,4 +1,4 @@
-blackjack/BlackJack.java
- blackjack.BlackJack
 gameofur/GameOfUr.java
  gameofur.GameOfUr
+ gameofur.GameOfUr$1
+ gameofur.GameOfUr$2
