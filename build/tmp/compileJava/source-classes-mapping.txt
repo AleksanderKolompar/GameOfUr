@@ -1,4 +1,6 @@
+gameofur/Position.java
+ gameofur.Position
 gameofur/GameOfUr.java
  gameofur.GameOfUr
- gameofur.GameOfUr$1
- gameofur.GameOfUr$2
+gameofur/Pawn.java
+ gameofur.Pawn
