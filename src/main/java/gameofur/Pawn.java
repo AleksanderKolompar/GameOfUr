@@ -12,10 +12,7 @@ public class Pawn {
     private int tilenumber = 0;
     private final Position position  = new Position();
 
-    EventHandler<ActionEvent> event = e -> {
-        move(500,500);
-        System.out.println("moved");
-    };
+
 
     public Pawn(Image pawnImage, String name) {
         this.name = name;

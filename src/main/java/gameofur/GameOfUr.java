@@ -2,6 +2,7 @@ package gameofur;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
@@ -14,7 +15,7 @@ public class GameOfUr extends Application {
     private final Image imageback = new Image("file:src/main/resources/UrBoard.jpg");
     private final Image whitePawn = new Image("file:src/main/resources/WhitePawnT.png");
     private final Image blackPawn = new Image("file:src/main/resources/BlackPawnT.png");
-    private Label testLabel = new Label("Test");
+    //private final Label testLabel = new Label("Test");
 
 
 
@@ -29,19 +30,19 @@ public class GameOfUr extends Application {
         BackgroundImage backgroundImage = new BackgroundImage(imageback, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
 
-
         GridPane grid = new GridPane();
-
         grid.setBackground(background);
 
-        testLabel.setTranslateY(300);
+        Dice dice = new Dice(3);
+        grid.add(dice.getRollButton(),0,0);
+        grid.add(dice.getTestLabel(),0,0);
 
-        grid.add(testLabel,1,1,100,100);
+        Board board = new Board(3,8);
 
-        Pawn white1 = new Pawn(whitePawn,"white1");
-
-        grid.add(white1.getPawnButton(),0,0,392,392);
-
+        for (int i = 1; i<=10;i++){
+            Pawn white1 = new Pawn(whitePawn, "white1");
+            grid.add(white1.getPawnButton(),0,0);
+        }
         Scene scene = new Scene(grid, 500, 760, Color.WHITE);
 
         primaryStage.setTitle("Game of Ur");

@@ -1,6 +1,12 @@
 gameofur/Position.java
  gameofur.Position
-gameofur/GameOfUr.java
- gameofur.GameOfUr
 gameofur/Pawn.java
  gameofur.Pawn
+gameofur/Board.java
+ gameofur.Board
+ gameofur.Board$Tile
+ gameofur.Board$TileState
+gameofur/Dice.java
+ gameofur.Dice
+gameofur/GameOfUr.java
+ gameofur.GameOfUr

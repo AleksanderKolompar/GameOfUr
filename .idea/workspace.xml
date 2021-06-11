@@ -15,6 +15,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/gameofur/GameOfUr.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/gameofur/GameOfUr.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gameofur/GameOfUr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameofur/GameOfUr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gameofur/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameofur/Pawn.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,6 +81,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Dice" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="gameofur.Dice" />
+      <module name="GameOfUr.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="gameofur.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="GameOfUr" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="gameofur.GameOfUr" />
       <module name="GameOfUr.main" />
@@ -108,9 +122,11 @@
     <list>
       <item itemvalue="Application.BlackJack" />
       <item itemvalue="Application.GameOfUr" />
+      <item itemvalue="Application.Dice" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Dice" />
         <item itemvalue="Application.GameOfUr" />
         <item itemvalue="Application.BlackJack" />
       </list>
@@ -126,7 +142,7 @@
       <updated>1623101324730</updated>
       <workItem from="1623101326365" duration="31243000" />
       <workItem from="1623230363643" duration="12605000" />
-      <workItem from="1623307399744" duration="7439000" />
+      <workItem from="1623307399744" duration="24970000" />
     </task>
     <servers />
   </component>
