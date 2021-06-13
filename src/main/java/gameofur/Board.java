@@ -1,8 +1,6 @@
 package gameofur;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class Board {
     enum TileState {
@@ -33,20 +31,31 @@ public class Board {
     }
 
     private final Map<Tile, TileState> boardMap = new HashMap<>();
+    private final List<Pawn> whitePawnsList;
+    private final List<Pawn> blackPawnsList;
 
-    public Board(int xSize, int ySize) {
+    public Board(int xSize, int ySize, List<Pawn> whitePawnsList, List<Pawn> blackPawnsList) {
         for (int x = 1; x <= xSize; x++) {
             for (int y = 1; y <= ySize; y++) {
-                Tile tile = new Tile(x, y);
                 this.boardMap.put(new Tile(x, y), TileState.EMPTY);
                 //System.out.println(this.boardMap.get(new Tile(x, y)) == TileState.EMPTY);
             }
         }
+        this.whitePawnsList = whitePawnsList;
+        this.blackPawnsList = blackPawnsList;
     }
 
     public TileState getTileState(int x, int y) {
         //System.out.println("getTileState" + boardMap.get(new Tile(x, y)));
         return boardMap.get(new Tile(x, y));
+    }
+
+    public List<Pawn> getWhitePawnsList() {
+        return whitePawnsList;
+    }
+
+    public List<Pawn> getBlackPawnsList() {
+        return blackPawnsList;
     }
 
     public void setTileState(int x, int y, TileState newState) {
@@ -64,9 +73,7 @@ public class Board {
             for (int j = 1; j <= 3; j++) {
                 System.out.print(" " + getTileState(j, i) + " |");
             }
-            System.out.println("");
+            System.out.print("\n");
         }
     }
-
-
 }
