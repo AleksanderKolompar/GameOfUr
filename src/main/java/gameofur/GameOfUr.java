@@ -15,8 +15,7 @@ public class GameOfUr extends Application {
     private final Image imageback = new Image("file:src/main/resources/UrBoard.jpg");
     private final Image whitePawn = new Image("file:src/main/resources/WhitePawnT.png");
     private final Image blackPawn = new Image("file:src/main/resources/BlackPawnT.png");
-    //private final Label testLabel = new Label("Test");
-
+    private final Label testLabel = new Label("Test");
 
 
     public static void main(String[] args) {
@@ -34,20 +33,24 @@ public class GameOfUr extends Application {
         grid.setBackground(background);
 
         Dice dice = new Dice(3);
-        grid.add(dice.getRollButton(),0,0);
-        grid.add(dice.getTestLabel(),0,0);
+        grid.add(dice.getRollButton(), 0, 0);
+        grid.add(dice.getTestLabel(), 0, 0);
 
-        Board board = new Board(3,8);
+        Board board = new Board(3, 8);
 
-        for (int i = 1; i<=10;i++){
-            Pawn white1 = new Pawn(whitePawn, "white1");
-            grid.add(white1.getPawnButton(),0,0);
+        grid.add(testLabel, 0, 0);
+
+
+        for (int i = 1; i <= 4; i++) {
+            Pawn white1 = new Pawn(whitePawn, Board.TileState.WHITE, dice, board);
+            grid.add(white1.getPawnButton(), 0, 0);
         }
         Scene scene = new Scene(grid, 500, 760, Color.WHITE);
 
         primaryStage.setTitle("Game of Ur");
         primaryStage.setScene(scene);
         primaryStage.show();
+
 
     }
 }

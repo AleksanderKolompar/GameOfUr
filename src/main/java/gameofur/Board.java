@@ -1,8 +1,8 @@
 package gameofur;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class Board {
     enum TileState {
@@ -12,43 +12,61 @@ public class Board {
     class Tile {
         private final int xCoordinate;
         private final int yCoordinate;
-        private TileState tileState;
 
-        public Tile(int xCoordinate, int yCoordinate) {
+        private Tile(int xCoordinate, int yCoordinate) {
             this.xCoordinate = xCoordinate;
             this.yCoordinate = yCoordinate;
-            this.tileState = TileState.EMPTY;
         }
 
-        public void setTileState(TileState tileState) {
-            this.tileState = tileState;
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Tile tile = (Tile) o;
+            return xCoordinate == tile.xCoordinate && yCoordinate == tile.yCoordinate;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(xCoordinate, yCoordinate);
         }
     }
 
-    private final List<Tile> board = new ArrayList<>();
+    private final Map<Tile, TileState> boardMap = new HashMap<>();
 
     public Board(int xSize, int ySize) {
-        for (int x = 0; x < xSize; x++) {
-            for (int y = 0; y < ySize; y++) {
-                this.board.add(new Tile(x, y));
+        for (int x = 1; x <= xSize; x++) {
+            for (int y = 1; y <= ySize; y++) {
+                Tile tile = new Tile(x, y);
+                this.boardMap.put(new Tile(x, y), TileState.EMPTY);
+                //System.out.println(this.boardMap.get(new Tile(x, y)) == TileState.EMPTY);
             }
         }
     }
 
-    public List<Tile> getBoard() {
-        return board;
-    }
-
     public TileState getTileState(int x, int y) {
-        return board.stream()
-                .filter(e -> (e.xCoordinate == x) && (e.yCoordinate == y))
-                .collect(Collectors.toList()).get(0).tileState;
+        //System.out.println("getTileState" + boardMap.get(new Tile(x, y)));
+        return boardMap.get(new Tile(x, y));
     }
 
     public void setTileState(int x, int y, TileState newState) {
-        int index = board.indexOf(board.stream()
-                .filter(e -> (e.xCoordinate == x) && (e.yCoordinate == y))
-                .collect(Collectors.toList()));
-        board.get(index).setTileState(newState);
+        boardMap.replace(new Tile(x, y), newState);
     }
+
+    public boolean checkIfEmptyTile(int x, int y) {
+        //System.out.println("checkIfEmptyTile" + getTileState(x, y).equals(TileState.EMPTY));
+        return getTileState(x, y) == (TileState.EMPTY);
+    }
+
+    public void displayBoard() {
+        for (int i = 1; i <= 8; i++) {
+            System.out.print("|");
+            for (int j = 1; j <= 3; j++) {
+                System.out.print(" " + getTileState(j, i) + " |");
+            }
+            System.out.println("");
+        }
+    }
+
+
 }

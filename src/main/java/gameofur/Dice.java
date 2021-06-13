@@ -15,15 +15,16 @@ public class Dice {
         rollButton.setOnAction(e -> {
             rollResult = rollDice();
             testLabel.setText(Integer.toString(rollResult));
+            rollButton.setDisable(true);
         });
         testLabel.setTranslateX(400);
         testLabel.setTranslateY(40);
     }
 
-    public int rollDice(){
+    public int rollDice() {
         int result = 0;
-        for (int i=0;i<numberOfDice;i++){
-            result += Math.round(Math.random() * 1) ;
+        for (int i = 0; i < numberOfDice; i++) {
+            result += Math.round(Math.random() * 1);
         }
         return result;
     }
@@ -40,7 +41,11 @@ public class Dice {
         return rollResult;
     }
 
-    public void resetRollResult(int rollResult) {
+    public void resetRollResult() {
         this.rollResult = 0;
+    }
+
+    public void reactivateButton() {
+        rollButton.setDisable(false);
     }
 }
