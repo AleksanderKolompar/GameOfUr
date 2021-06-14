@@ -4,7 +4,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class Pawn {
@@ -23,33 +22,41 @@ public class Pawn {
         this.position = new Position(color);
         this.pawnButton = new Button("", new ImageView(pawnImage));
         this.pawnButton.setStyle("-fx-background-color: transparent;");
-        this.pawnButton.setOnAction(e -> {
-            int newTileNumber = tileNumber + dice.getRollResult();
+        this.pawnButton.setOnAction(e -> pawnEvent());
+        move(position.getPosX(0), position.getPosY(0));
+    }
+
+    public Button getPawnButton() {
+        return pawnButton;
+    }
+
+    private void pawnEvent() {
+        int newTileNumber = tileNumber + dice.getRollResult();
+        if (newTileNumber <= 15) {
             int posX = position.getListPosX().get(tileNumber);
             int posY = position.getListPosY().get(tileNumber);
             int newPosX = position.getListPosX().get(newTileNumber);
             int newPosY = position.getListPosY().get(newTileNumber);
-            System.out.println(newPosX + " " + newPosY);
 
             if (isValidMove(newTileNumber, newPosX, newPosY)) {
-                tileNumber = newTileNumber;
-
-                if (tileNumber >= 16) {
-                    tileNumber = 0;
-                }
-                move(position.getPosX(newTileNumber), position.getPosY(newTileNumber));
+                System.out.println(newPosX + " " + newPosY + " " + newTileNumber);
                 board.setTileState(posX, posY, Board.TileState.EMPTY);
-                board.setTileState(newPosX, newPosY, color);
-                board.displayBoard();
+                move(position.getPosX(newTileNumber), position.getPosY(newTileNumber));
+                tileNumber = newTileNumber;
+                if (tileNumber == 15) {
+                    //score++
+                    this.pawnButton.setOnAction(null);
+                } else {
+                    board.setTileState(newPosX, newPosY, color);
+                }
+                //board.displayBoard();
+
 
                 dice.resetRollResult();
-            } else {
-                System.out.println("Invalid Move. Try Again");
             }
             dice.reactivateButton();
+        }
 
-        });
-        move(position.getPosX(0), position.getPosY(0));
     }
 
     private void move(double x, double y) {
@@ -57,24 +64,18 @@ public class Pawn {
         this.pawnButton.setTranslateY(y);
     }
 
-    public Button getPawnButton() {
-        return pawnButton;
-    }
-
     private boolean isValidMove(int newTileNumber, int newPosX, int newPosY) {
-        if (newTileNumber <= 16) {
-            if (board.checkIfEmptyTile(newPosX, newPosY)) {
-                return true;
-            } else if (board.getTileState(newPosX, newPosY) != color) {
-                capture(newTileNumber);
-                return true;
-            }
+        if (board.checkIfEmptyTile(newPosX, newPosY)) {
+            return true;
+        } else if (board.getTileState(newPosX, newPosY) != color) {
+            capture(newTileNumber);
+            return true;
         }
+        System.out.println("Invalid Move. Try Again");
         return false;
     }
 
     private void capture(int newTileNumber) {
-        //find opposite color pawn occupying newx/newy tile
         List<Pawn> pawnsList;
         if (color == Board.TileState.WHITE) {
             pawnsList = board.getBlackPawnsList();
