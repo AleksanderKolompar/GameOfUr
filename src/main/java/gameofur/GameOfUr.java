@@ -2,7 +2,6 @@ package gameofur;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
@@ -15,9 +14,9 @@ import java.util.List;
 
 public class GameOfUr extends Application {
 
-    private final Image imageback = new Image("file:src/main/resources/UrBoard.jpg");
-    private final Image whitePawn = new Image("file:src/main/resources/WhitePawnT.png");
-    private final Image blackPawn = new Image("file:src/main/resources/BlackPawnT.png");
+    private final Image boardImage = new Image("file:src/main/resources/UrBoard.jpg");
+    private final Image whitePawnImage = new Image("file:src/main/resources/WhitePawnT.png");
+    private final Image blackPawnImage = new Image("file:src/main/resources/BlackPawnT.png");
     private final Label testLabel = new Label("Test");
     private final List<Pawn> whitePawnsList = new LinkedList<>();
     private final List<Pawn> blackPawnsList = new LinkedList<>();
@@ -30,33 +29,37 @@ public class GameOfUr extends Application {
     public void start(Stage primaryStage) {
 
         BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
-        BackgroundImage backgroundImage = new BackgroundImage(imageback, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
+        BackgroundImage backgroundImage = new BackgroundImage(boardImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
 
-        GridPane grid = new GridPane();
-        grid.setBackground(background);
-
-        Dice dice = new Dice(3);
-        grid.add(dice.getRollButton(), 0, 0);
-        grid.add(dice.getTestLabel(), 0, 0);
-
         Board board = new Board(3, 8, whitePawnsList, blackPawnsList);
+        Dice dice = new Dice(3);
+        GridPane grid = new GridPane();
+        GameEventHandler gameEventHandler = new GameEventHandler(board, dice);
 
-        grid.add(testLabel, 0, 0);
+        grid.setBackground(background);
+        grid.add(testLabel, 0, 0);  /// reverse dependency
+        dice.addToGrid(grid);
 
+        dice.setOnAction(e -> gameEventHandler.diceEvent());
 
         for (int i = 0; i < 2; i++) {
-            whitePawnsList.add(new Pawn(whitePawn, Board.TileState.WHITE, dice, board));
-            blackPawnsList.add(new Pawn(blackPawn, Board.TileState.BLACK, dice, board));
-            //Pawn white1 = new Pawn(whitePawn, Board.TileState.WHITE, dice, board);
-            grid.add(whitePawnsList.get(i).getPawnButton(), 0, 0);
-            grid.add(blackPawnsList.get(i).getPawnButton(), 0, 0);
+            Pawn whitePawn = new Pawn(whitePawnImage, Board.TileState.WHITE);
+            Pawn blackPawn = new Pawn(blackPawnImage, Board.TileState.BLACK);
+            whitePawnsList.add(whitePawn);
+            blackPawnsList.add(blackPawn);
+
+            whitePawn.setOnAction(e -> gameEventHandler.pawnEvent(whitePawn));
+            blackPawn.setOnAction(e -> gameEventHandler.pawnEvent(blackPawn));
+
+            whitePawn.addToGrid(grid);
+            blackPawn.addToGrid(grid);
         }
         Scene scene = new Scene(grid, 500, 760, Color.WHITE);
+
 
         primaryStage.setTitle("Game of Ur");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
 }

@@ -13,7 +13,13 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.8/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/gameofur/GameOfUr.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/gameofur/GameOfUr.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gameofur/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameofur/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gameofur/Dice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameofur/Dice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gameofur/GameOfUr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameofur/GameOfUr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gameofur/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameofur/Pawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gameofur/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameofur/Position.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,10 +61,16 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../javafx-sdk-11.0.2/lib" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.24105754" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveInnerDialog.RECENTS_KEY">
+      <recent name="gameofur" />
+    </key>
   </component>
   <component name="RunManager" selected="Application.GameOfUr">
     <configuration name="BlackJack" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -140,7 +152,7 @@
       <updated>1623101324730</updated>
       <workItem from="1623101326365" duration="31243000" />
       <workItem from="1623230363643" duration="12605000" />
-      <workItem from="1623307399744" duration="61636000" />
+      <workItem from="1623307399744" duration="76690000" />
     </task>
     <servers />
   </component>
