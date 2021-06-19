@@ -3,12 +3,12 @@ gameofur/Board.java
  gameofur.Board$TileState
 gameofur/Position.java
  gameofur.Position
+gameofur/Dice.java
+ gameofur.Dice
 gameofur/Coordinates.java
  gameofur.Coordinates
 gameofur/Pawn.java
  gameofur.Pawn
-gameofur/Dice.java
- gameofur.Dice
 gameofur/GameEventHandler.java
  gameofur.GameEventHandler
 gameofur/GameOfUr.java

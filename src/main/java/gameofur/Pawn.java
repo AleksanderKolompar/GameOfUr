@@ -22,8 +22,9 @@ public class Pawn {
         this.pawnButton = new Button("", new ImageView(pawnImage));
         this.pawnButton.setStyle("-fx-background-color: transparent;");
         //this.pawnButton.setOnAction(e -> pawnEvent());
-        move(START_TILE);
+        reposition(START_TILE);
     }
+
 
     public void setOnAction(EventHandler<ActionEvent> value) {
         this.pawnButton.setOnAction(value);
@@ -33,7 +34,7 @@ public class Pawn {
         grid.add(pawnButton, 0, 0);
     }
 
-    public void move(int tileNumber) {
+    public void reposition(int tileNumber) {
         this.pawnButton.setTranslateX(position.getPosX(tileNumber));
         this.pawnButton.setTranslateY(position.getPosY(tileNumber));
     }

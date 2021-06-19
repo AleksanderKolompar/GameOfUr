@@ -2,7 +2,6 @@ package gameofur;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -17,9 +16,10 @@ public class GameOfUr extends Application {
     private final Image boardImage = new Image("file:src/main/resources/UrBoard.jpg");
     private final Image whitePawnImage = new Image("file:src/main/resources/WhitePawnT.png");
     private final Image blackPawnImage = new Image("file:src/main/resources/BlackPawnT.png");
-    private final Label testLabel = new Label("Test");
     private final List<Pawn> whitePawnsList = new LinkedList<>();
     private final List<Pawn> blackPawnsList = new LinkedList<>();
+
+    public static final int numberOfPawns = 2;
 
     public static void main(String[] args) {
         launch(args);
@@ -38,19 +38,19 @@ public class GameOfUr extends Application {
         GameEventHandler gameEventHandler = new GameEventHandler(board, dice);
 
         grid.setBackground(background);
-        grid.add(testLabel, 0, 0);  /// reverse dependency
+        board.addToGrid(grid);
         dice.addToGrid(grid);
 
         dice.setOnAction(e -> gameEventHandler.diceEvent());
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < numberOfPawns; i++) {
             Pawn whitePawn = new Pawn(whitePawnImage, Board.TileState.WHITE);
             Pawn blackPawn = new Pawn(blackPawnImage, Board.TileState.BLACK);
             whitePawnsList.add(whitePawn);
             blackPawnsList.add(blackPawn);
 
             whitePawn.setOnAction(e -> gameEventHandler.pawnEvent(whitePawn));
-            blackPawn.setOnAction(e -> gameEventHandler.pawnEvent(blackPawn));
+            //blackPawn.setOnAction(e -> gameEventHandler.pawnEvent(blackPawn));
 
             whitePawn.addToGrid(grid);
             blackPawn.addToGrid(grid);
@@ -62,4 +62,6 @@ public class GameOfUr extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
+
 }

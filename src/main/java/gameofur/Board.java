@@ -1,5 +1,8 @@
 package gameofur;
 
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+
 import java.util.*;
 
 public class Board {
@@ -10,6 +13,9 @@ public class Board {
     private final Map<Coordinates, TileState> boardMap = new HashMap<>();
     private final List<Pawn> whitePawnsList;
     private final List<Pawn> blackPawnsList;
+    private final Label scoreLabel = new Label("Test");
+    private int whiteScore = 0;
+    private int blackScore = 0;
 
     public Board(int xSize, int ySize, List<Pawn> whitePawnsList, List<Pawn> blackPawnsList) {
         for (int x = 1; x <= xSize; x++) {
@@ -19,6 +25,25 @@ public class Board {
         }
         this.whitePawnsList = whitePawnsList;
         this.blackPawnsList = blackPawnsList;
+    }
+
+    public void addToGrid(GridPane grid) {
+        grid.add(scoreLabel, 0, 0);
+    }
+
+    public void incrementScore(TileState color) {
+        if (color == TileState.WHITE) {
+            this.whiteScore++;
+
+        }
+        if (color == TileState.BLACK) {
+            this.blackScore++;
+        }
+        updateScore();
+    }
+
+    private void updateScore(){
+        scoreLabel.setText(blackScore + " " + whiteScore);
     }
 
     public TileState getTileState(Coordinates coordinates) {
@@ -50,4 +75,6 @@ public class Board {
             System.out.print("\n");
         }
     }
+
+
 }

@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 
 import java.util.List;
 
+import static gameofur.GameOfUr.numberOfPawns;
 import static gameofur.Position.END_TILE;
 import static gameofur.Position.START_TILE;
 
@@ -37,12 +38,14 @@ public class GameEventHandler implements javafx.event.EventHandler<ActionEvent> 
             Coordinates oldCoordinates = new Coordinates(tileNumber, pawn.getColor());
             Coordinates newCoordinates = new Coordinates(newTileNumber, pawn.getColor());
 
-            if (isValidMove(newTileNumber, newCoordinates)) {
+            if (isValidMove(newTileNumber, newCoordinates, pawn.getColor())) {
                 board.setTileState(oldCoordinates, Board.TileState.EMPTY);
-                pawn.move(newTileNumber);
+                pawn.reposition(newTileNumber);
                 pawn.setTileNumber(newTileNumber);
-                if (tileNumber == END_TILE) {
-                    //score++
+                if (newTileNumber == END_TILE) {
+                    if (dice.getRollResult() != 0) {
+                        board.incrementScore(pawn.getColor());
+                    }
                     pawn.setOnAction(null);
                     board.setTileState(newCoordinates, Board.TileState.EMPTY);
                 } else {
@@ -51,18 +54,23 @@ public class GameEventHandler implements javafx.event.EventHandler<ActionEvent> 
                 board.displayBoard();
                 dice.resetRollResult();
             }
-            dice.reactivateButton();
         }
+        if (pawn.getColor().equals(Board.TileState.WHITE)) {
+            computerMove();
+        }
+        dice.reactivateButton();
     }
 
-    private boolean isValidMove(int newTileNumber, Coordinates coordinates) {
+    private boolean isValidMove(int newTileNumber, Coordinates coordinates, Board.TileState color) {
         if (board.checkIfEmptyTile(coordinates) || newTileNumber == END_TILE || pawn.getTileNumber() == newTileNumber) {
             return true;
-        } else if (board.getTileState(coordinates) != pawn.getColor()) {
+        } else if (board.getTileState(coordinates) != color) {
             capture(newTileNumber);
             return true;
         }
-        System.out.println("Invalid Move. Try Again");
+        System.out.println("Invalid Move.");
+        dice.setRollResult(0);
+        dice.reactivateButton();
         return false;
     }
 
@@ -77,8 +85,39 @@ public class GameEventHandler implements javafx.event.EventHandler<ActionEvent> 
             if (capturedPawn.getTileNumber() == newTileNumber) {
                 System.out.println("Pawning");
                 capturedPawn.setTileNumber(START_TILE);
-                capturedPawn.move(START_TILE);
+                capturedPawn.reposition(START_TILE);
             }
         }
+    }
+
+    private void computerMove() {
+        diceEvent();
+        if (dice.getRollResult() == 0) {
+            return;
+        }
+        int pawnNumber = findValidBlackMove(0, numberOfPawns, Board.TileState.BLACK);
+        int newTileNumber = board.getBlackPawnsList().get(pawnNumber).getTileNumber();
+        Pawn pawn = board.getBlackPawnsList().get(pawnNumber);
+        pawn.setTileNumber(newTileNumber);
+        pawnEvent(pawn);
+    }
+
+    public int findValidBlackMove(int start, int end, Board.TileState color) {
+        int validIndex = start;
+        if (validIndex >= end)
+        {
+            System.out.println("no pawn to move");
+            dice.setRollResult(0);
+            return numberOfPawns - 1;
+        }
+        int newTileNumber = board.getBlackPawnsList().get(validIndex).getTileNumber() + dice.getRollResult();
+        if (newTileNumber <= END_TILE ) {
+            Coordinates coordinates = new Coordinates(newTileNumber, color);
+            if (isValidMove(newTileNumber, coordinates, color)) {
+                System.out.println("index: " + validIndex);
+                return validIndex;
+            }
+        }
+        return findValidBlackMove(validIndex + 1, end, color);
     }
 }
