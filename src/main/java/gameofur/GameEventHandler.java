@@ -1,6 +1,9 @@
 package gameofur;
 
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.util.Duration;
 
 import java.util.List;
 
@@ -8,11 +11,14 @@ import static gameofur.GameOfUr.numberOfPawns;
 import static gameofur.Position.END_TILE;
 import static gameofur.Position.START_TILE;
 
-public class GameEventHandler implements javafx.event.EventHandler<ActionEvent> {
+public class GameEventHandler implements EventHandler<ActionEvent> {
 
     private final Board board;
     private final Dice dice;
     private Pawn pawn;
+
+    public final PauseTransition pause = new PauseTransition(Duration.seconds(10));
+
 
     public GameEventHandler(Board board, Dice dice) {
         this.board = board;
@@ -21,13 +27,18 @@ public class GameEventHandler implements javafx.event.EventHandler<ActionEvent> 
 
     @Override
     public void handle(ActionEvent event) {
+        pause.setOnFinished(null);
     }
 
     public void diceEvent() {
         dice.setRollResult(dice.rollDice());
         System.out.println(dice.getRollResult());
         this.dice.setTestLabel(Integer.toString(dice.getRollResult()));
-        dice.getRollButton().setDisable(true);
+
+        pause.setOnFinished(event -> {
+            dice.getRollButton().setDisable(true);
+            pause.play();
+        });
     }
 
     public void pawnEvent(Pawn pawn) {
@@ -52,6 +63,7 @@ public class GameEventHandler implements javafx.event.EventHandler<ActionEvent> 
                     board.setTileState(newCoordinates, pawn.getColor());
                 }
                 board.displayBoard();
+
                 dice.resetRollResult();
             }
         }
@@ -81,6 +93,7 @@ public class GameEventHandler implements javafx.event.EventHandler<ActionEvent> 
 
     private void capture(int newTileNumber) {
         List<Pawn> pawnsList;
+
         if (pawn.getColor() == Board.TileState.WHITE) {
             pawnsList = board.getBlackPawnsList();
         } else {
@@ -96,34 +109,43 @@ public class GameEventHandler implements javafx.event.EventHandler<ActionEvent> 
     }
 
     private void computerMove() {
-        diceEvent();
-        if (dice.getRollResult() == 0) {
-            return;
-        }
-        int pawnNumber = findValidBlackMove(0, numberOfPawns, Board.TileState.BLACK);
-        int newTileNumber = board.getBlackPawnsList().get(pawnNumber).getTileNumber();
-        Pawn pawn = board.getBlackPawnsList().get(pawnNumber);
-        pawn.setTileNumber(newTileNumber);
-        pawnEvent(pawn);
-        dice.reactivateButton();
+        PauseTransition pauseTransition = new PauseTransition(Duration.seconds(0.5));
+        pauseTransition.setOnFinished(event1 ->
+        {
+            diceEvent();
+            if (dice.getRollResult() == 0) {
+                return;
+            }
+            pauseTransition.setOnFinished(event2 ->
+            {
+                int pawnNumber = findValidBlackMove(0, numberOfPawns, Board.TileState.BLACK);
+                int newTileNumber = board.getBlackPawnsList().get(pawnNumber).getTileNumber();
+                Pawn pawn = board.getBlackPawnsList().get(pawnNumber);
+                pawn.setTileNumber(newTileNumber);
+                pawnEvent(pawn);
+                dice.reactivateButton();
+            });
+            pauseTransition.play();
+        });
+        pauseTransition.play();
+
     }
 
     public int findValidBlackMove(int start, int end, Board.TileState color) {
-        int validIndex = start;
-        if (validIndex >= end) {
+        if (start >= end) {
             System.out.println("no pawn to move");
             dice.setRollResult(0);
             return numberOfPawns - 1;
         }
-        int newTileNumber = board.getBlackPawnsList().get(validIndex).getTileNumber() + dice.getRollResult();
+        int newTileNumber = board.getBlackPawnsList().get(start).getTileNumber() + dice.getRollResult();
         if (newTileNumber <= END_TILE) {
             Coordinates coordinates = new Coordinates(newTileNumber, color);
             if (isValidMove(newTileNumber, coordinates, color)) {
-                System.out.println("index: " + validIndex);
-                return validIndex;
+                System.out.println("index: " + start);
+                return start;
             }
         }
-        return findValidBlackMove(validIndex + 1, end, color);
+        return findValidBlackMove(start + 1, end, color);
     }
 
     public void resetGame() {
@@ -141,6 +163,14 @@ public class GameEventHandler implements javafx.event.EventHandler<ActionEvent> 
         }
         board.emptyBoard();
         board.resetScore();
+    }
+
+    public static void waitOneSecond() {
+        try {
+            Thread.sleep(1000);//time is in ms (1000 ms = 1 second)
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 

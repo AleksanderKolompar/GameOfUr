@@ -1,11 +1,13 @@
 package gameofur;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -13,7 +15,8 @@ import java.util.List;
 
 public class GameOfUr extends Application {
 
-    private final Image boardImage = new Image("file:build/resources/main/UrBoard.jpg");
+    private final Image boardImage = new Image(GameOfUr.class.getClassLoader().getResourceAsStream("UrBoard.jpg"));
+            //("file:build/resources/main/UrBoard.jpg");
     private final Image whitePawnImage = new Image("file:build/resources/main/WhitePawnT.png");
     private final Image blackPawnImage = new Image("file:build/resources/main/BlackPawnT.png");
     private final Image diceRoll0Image = new Image("file:build/resources/main/DiceRoll0T.png");
@@ -21,13 +24,14 @@ public class GameOfUr extends Application {
     private final List<Pawn> whitePawnsList = new LinkedList<>();
     private final List<Pawn> blackPawnsList = new LinkedList<>();
 
-    Board board = new Board(3, 8, whitePawnsList, blackPawnsList);
-    Dice dice = new Dice(3, diceRoll0Image, diceRoll1Image);
-    GridPane grid = new GridPane();
-    GameEventHandler gameEventHandler = new GameEventHandler(board, dice);
+    private final Board board = new Board(3, 8, whitePawnsList, blackPawnsList);
+    private final Dice dice = new Dice(3, diceRoll0Image, diceRoll1Image);
+    private final GridPane grid = new GridPane();
+    private final GameEventHandler gameEventHandler = new GameEventHandler(board, dice);
 
+    private final PauseTransition pause = new PauseTransition(Duration.seconds(1));
 
-    public static final int numberOfPawns = 8;
+    public static final int numberOfPawns = 1;
 
     public static void main(String[] args) {
         launch(args);
