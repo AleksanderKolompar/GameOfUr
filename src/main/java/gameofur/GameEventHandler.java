@@ -55,6 +55,11 @@ public class GameEventHandler implements javafx.event.EventHandler<ActionEvent> 
                 dice.resetRollResult();
             }
         }
+        if (board.checkGameEnd()) {
+            dice.setTestLabel("0");
+            board.resetScoreLabel();
+            resetGame();
+        }
         if (pawn.getColor().equals(Board.TileState.WHITE)) {
             computerMove();
         }
@@ -100,18 +105,18 @@ public class GameEventHandler implements javafx.event.EventHandler<ActionEvent> 
         Pawn pawn = board.getBlackPawnsList().get(pawnNumber);
         pawn.setTileNumber(newTileNumber);
         pawnEvent(pawn);
+        dice.reactivateButton();
     }
 
     public int findValidBlackMove(int start, int end, Board.TileState color) {
         int validIndex = start;
-        if (validIndex >= end)
-        {
+        if (validIndex >= end) {
             System.out.println("no pawn to move");
             dice.setRollResult(0);
             return numberOfPawns - 1;
         }
         int newTileNumber = board.getBlackPawnsList().get(validIndex).getTileNumber() + dice.getRollResult();
-        if (newTileNumber <= END_TILE ) {
+        if (newTileNumber <= END_TILE) {
             Coordinates coordinates = new Coordinates(newTileNumber, color);
             if (isValidMove(newTileNumber, coordinates, color)) {
                 System.out.println("index: " + validIndex);
@@ -120,4 +125,23 @@ public class GameEventHandler implements javafx.event.EventHandler<ActionEvent> 
         }
         return findValidBlackMove(validIndex + 1, end, color);
     }
+
+    public void resetGame() {
+        for (int i = 0; i < numberOfPawns; i++) {
+            Pawn whitePawn = board.getWhitePawnsList().get(i);
+            Pawn blackPawn = board.getBlackPawnsList().get(i);
+
+            whitePawn.setTileNumber(0);
+            blackPawn.setTileNumber(0);
+
+            whitePawn.setOnAction(e -> pawnEvent(whitePawn));
+
+            whitePawn.reposition(0);
+            blackPawn.reposition(0);
+        }
+        board.emptyBoard();
+        board.resetScore();
+    }
+
+
 }

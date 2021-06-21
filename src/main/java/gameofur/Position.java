@@ -27,7 +27,7 @@ public class Position {
     }
 
     public double getPosY(int tileNumber) {
-        return (listPosY.get(tileNumber) - 1) * 92 + 19;
+        return (listPosY.get(tileNumber) - 1) * 92 + 9;
     }
 
     private List<Integer> getListPosX() {

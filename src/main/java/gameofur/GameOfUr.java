@@ -13,13 +13,21 @@ import java.util.List;
 
 public class GameOfUr extends Application {
 
-    private final Image boardImage = new Image("file:src/main/resources/UrBoard.jpg");
-    private final Image whitePawnImage = new Image("file:src/main/resources/WhitePawnT.png");
-    private final Image blackPawnImage = new Image("file:src/main/resources/BlackPawnT.png");
+    private final Image boardImage = new Image("file:build/resources/main/UrBoard.jpg");
+    private final Image whitePawnImage = new Image("file:build/resources/main/WhitePawnT.png");
+    private final Image blackPawnImage = new Image("file:build/resources/main/BlackPawnT.png");
+    private final Image diceRoll0Image = new Image("file:build/resources/main/DiceRoll0T.png");
+    private final Image diceRoll1Image = new Image("file:build/resources/main/DiceRoll1T.png");
     private final List<Pawn> whitePawnsList = new LinkedList<>();
     private final List<Pawn> blackPawnsList = new LinkedList<>();
 
-    public static final int numberOfPawns = 2;
+    Board board = new Board(3, 8, whitePawnsList, blackPawnsList);
+    Dice dice = new Dice(3, diceRoll0Image, diceRoll1Image);
+    GridPane grid = new GridPane();
+    GameEventHandler gameEventHandler = new GameEventHandler(board, dice);
+
+
+    public static final int numberOfPawns = 8;
 
     public static void main(String[] args) {
         launch(args);
@@ -32,10 +40,6 @@ public class GameOfUr extends Application {
         BackgroundImage backgroundImage = new BackgroundImage(boardImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
 
-        Board board = new Board(3, 8, whitePawnsList, blackPawnsList);
-        Dice dice = new Dice(3);
-        GridPane grid = new GridPane();
-        GameEventHandler gameEventHandler = new GameEventHandler(board, dice);
 
         grid.setBackground(background);
         board.addToGrid(grid);
@@ -55,6 +59,7 @@ public class GameOfUr extends Application {
             whitePawn.addToGrid(grid);
             blackPawn.addToGrid(grid);
         }
+
         Scene scene = new Scene(grid, 500, 760, Color.WHITE);
 
 

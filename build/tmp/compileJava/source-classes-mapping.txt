@@ -5,11 +5,11 @@ gameofur/Position.java
  gameofur.Position
 gameofur/Dice.java
  gameofur.Dice
-gameofur/Coordinates.java
- gameofur.Coordinates
-gameofur/Pawn.java
- gameofur.Pawn
 gameofur/GameEventHandler.java
  gameofur.GameEventHandler
 gameofur/GameOfUr.java
  gameofur.GameOfUr
+gameofur/Pawn.java
+ gameofur.Pawn
+gameofur/Coordinates.java
+ gameofur.Coordinates
