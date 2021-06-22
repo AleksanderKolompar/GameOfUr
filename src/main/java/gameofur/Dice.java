@@ -94,5 +94,10 @@ public class Dice {
         listOfDice.get(index).setImage(image);
     }
 
+    public void resetDice(){
+        for (int i = 0; i < diceCount; i++) {
+            this.listOfDice.get(i).setImage(diceRoll0Image);
+        }
+    }
 
 }

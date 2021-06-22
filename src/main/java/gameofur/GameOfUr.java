@@ -1,13 +1,13 @@
 package gameofur;
 
-import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,12 +15,11 @@ import java.util.List;
 
 public class GameOfUr extends Application {
 
-    private final Image boardImage = new Image(GameOfUr.class.getClassLoader().getResourceAsStream("UrBoard.jpg"));
-            //("file:build/resources/main/UrBoard.jpg");
-    private final Image whitePawnImage = new Image("file:build/resources/main/WhitePawnT.png");
-    private final Image blackPawnImage = new Image("file:build/resources/main/BlackPawnT.png");
-    private final Image diceRoll0Image = new Image("file:build/resources/main/DiceRoll0T.png");
-    private final Image diceRoll1Image = new Image("file:build/resources/main/DiceRoll1T.png");
+    private final Image boardImage = loadImage("UrBoard.jpg");
+    private final Image whitePawnImage = loadImage("WhitePawnT.png");
+    private final Image blackPawnImage = loadImage("BlackPawnT.png");
+    private final Image diceRoll0Image = loadImage("DiceRoll0T.png");
+    private final Image diceRoll1Image = loadImage("DiceRoll1T.png");
     private final List<Pawn> whitePawnsList = new LinkedList<>();
     private final List<Pawn> blackPawnsList = new LinkedList<>();
 
@@ -29,7 +28,6 @@ public class GameOfUr extends Application {
     private final GridPane grid = new GridPane();
     private final GameEventHandler gameEventHandler = new GameEventHandler(board, dice);
 
-    private final PauseTransition pause = new PauseTransition(Duration.seconds(1));
 
     public static final int numberOfPawns = 1;
 
@@ -70,6 +68,23 @@ public class GameOfUr extends Application {
         primaryStage.setTitle("Game of Ur");
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private Image loadImage(String fileName) {
+        try {
+            return new Image(GameOfUr.class.getClassLoader().getResourceAsStream(fileName));
+        }
+        catch (NullPointerException e) {
+            System.out.println("Could not find: " + fileName);
+            e.printStackTrace();
+
+            WritableImage img = new WritableImage(1, 1);
+            PixelWriter pw = img.getPixelWriter();
+            Color color = Color.color(0, 0, 0, 1);
+
+            pw.setColor(0, 0, color);
+            return img;
+        }
     }
 
 

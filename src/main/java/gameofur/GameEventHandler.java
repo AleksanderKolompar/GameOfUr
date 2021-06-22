@@ -1,8 +1,6 @@
 package gameofur;
 
 import javafx.animation.PauseTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.util.Duration;
 
 import java.util.List;
@@ -11,34 +9,25 @@ import static gameofur.GameOfUr.numberOfPawns;
 import static gameofur.Position.END_TILE;
 import static gameofur.Position.START_TILE;
 
-public class GameEventHandler implements EventHandler<ActionEvent> {
+public class GameEventHandler {
 
     private final Board board;
     private final Dice dice;
     private Pawn pawn;
 
-    public final PauseTransition pause = new PauseTransition(Duration.seconds(10));
-
+    public final PauseTransition pauseTransition = new PauseTransition(Duration.seconds(0.5));
 
     public GameEventHandler(Board board, Dice dice) {
         this.board = board;
         this.dice = dice;
     }
 
-    @Override
-    public void handle(ActionEvent event) {
-        pause.setOnFinished(null);
-    }
 
     public void diceEvent() {
         dice.setRollResult(dice.rollDice());
         System.out.println(dice.getRollResult());
         this.dice.setTestLabel(Integer.toString(dice.getRollResult()));
 
-        pause.setOnFinished(event -> {
-            dice.getRollButton().setDisable(true);
-            pause.play();
-        });
     }
 
     public void pawnEvent(Pawn pawn) {
@@ -109,7 +98,6 @@ public class GameEventHandler implements EventHandler<ActionEvent> {
     }
 
     private void computerMove() {
-        PauseTransition pauseTransition = new PauseTransition(Duration.seconds(0.5));
         pauseTransition.setOnFinished(event1 ->
         {
             diceEvent();
@@ -128,7 +116,6 @@ public class GameEventHandler implements EventHandler<ActionEvent> {
             pauseTransition.play();
         });
         pauseTransition.play();
-
     }
 
     public int findValidBlackMove(int start, int end, Board.TileState color) {
@@ -163,15 +150,6 @@ public class GameEventHandler implements EventHandler<ActionEvent> {
         }
         board.emptyBoard();
         board.resetScore();
+        dice.resetDice();
     }
-
-    public static void waitOneSecond() {
-        try {
-            Thread.sleep(1000);//time is in ms (1000 ms = 1 second)
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-
 }

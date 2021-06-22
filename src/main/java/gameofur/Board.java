@@ -46,10 +46,7 @@ public class Board {
     }
 
     public boolean checkGameEnd() {
-        if ((blackScore == numberOfPawns) || (whiteScore == numberOfPawns)) {
-            return true;
-        }
-        return false;
+        return (blackScore == numberOfPawns) || (whiteScore == numberOfPawns);
     }
 
 

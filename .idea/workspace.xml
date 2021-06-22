@@ -15,6 +15,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/gameofur/GameOfUr.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/gameofur/GameOfUr.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gameofur/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameofur/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gameofur/Dice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameofur/Dice.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gameofur/GameEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameofur/GameEventHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gameofur/GameOfUr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameofur/GameOfUr.java" afterDir="false" />
     </list>
@@ -149,7 +151,7 @@
       <updated>1623101324730</updated>
       <workItem from="1623101326365" duration="31243000" />
       <workItem from="1623230363643" duration="12605000" />
-      <workItem from="1623307399744" duration="118777000" />
+      <workItem from="1623307399744" duration="127978000" />
     </task>
     <servers />
   </component>
