@@ -11,7 +11,7 @@ public final class Coordinates {
         this.yCoordinate = yCoordinate;
     }
 
-    Coordinates(int tileNumber, Board.TileState color) {
+    Coordinates(int tileNumber, Board.Color color) {
         Position position = new Position(color);
         this.xCoordinate = position.getCoordinateX(tileNumber);
         this.yCoordinate = position.getCoordinateY(tileNumber);

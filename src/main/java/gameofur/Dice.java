@@ -14,8 +14,9 @@ import java.util.List;
 public class Dice {
     private final int diceCount;
     private final Button rollButton = new Button("Roll");
-    private final Label testLabel = new Label("Test");
-    private int rollResult;
+    //private final Label testLabel = new Label("Test");
+    private int whiteRollResult;
+    private int blackRollResult;
     private final Image diceRoll0Image;
     private final Image diceRoll1Image;
     private final int repositionXWhite = 400;
@@ -27,8 +28,8 @@ public class Dice {
         this.diceCount = diceCount;
         rollButton.setTranslateX(430);
         rollButton.setTranslateY(330);
-        testLabel.setTranslateX(400);
-        testLabel.setTranslateY(40);
+        //testLabel.setTranslateX(400);
+        //testLabel.setTranslateY(40);
         this.diceRoll0Image = diceRoll0Image;
         this.diceRoll1Image = diceRoll1Image;
         for (int i = 0; i < diceCount; i++) {
@@ -42,12 +43,16 @@ public class Dice {
         this.rollButton.setOnAction(value);
     }
 
-    public void setTestLabel(String text) {
-        testLabel.setText(text);
-    }
+//    public void setTestLabel(String text) {
+//        testLabel.setText(text);
+//    }
 
-    public void setRollResult(int rollResult) {
-        this.rollResult = rollResult;
+    public void setRollResult(int rollResult, Board.Color color) {
+        if (color == Board.Color.WHITE) {
+            this.whiteRollResult = rollResult;
+        } else {
+            this.blackRollResult = rollResult;
+        }
     }
 
     public int rollDice() {
@@ -56,8 +61,7 @@ public class Dice {
             if ((int) Math.round(Math.random() * 1) == 0) {
                 result++;
                 setDiceImage(i, diceRoll1Image);
-            }
-            else {
+            } else {
                 setDiceImage(i, diceRoll0Image);
             }
 
@@ -69,12 +73,18 @@ public class Dice {
         return rollButton;
     }
 
-    public int getRollResult() {
-        return rollResult;
+    public int getRollResult(Board.Color color) {
+        if (color == Board.Color.WHITE) {
+            return whiteRollResult;
+        }
+        else {
+            return blackRollResult;
+        }
     }
 
+
     public void resetRollResult() {
-        this.rollResult = 0;
+        this.whiteRollResult = 0;
     }
 
     public void reactivateButton() {
@@ -83,7 +93,7 @@ public class Dice {
 
     public void addToGrid(GridPane grid) {
         grid.add(rollButton, 0, 0);
-        grid.add(testLabel, 0, 0);
+        //grid.add(testLabel, 0, 0);
         for (int i = 0; i < diceCount; i++) {
             this.listOfDice.add(new ImageView(diceRoll0Image));
             grid.add(listOfDice.get(i), 0, 0);
@@ -94,7 +104,7 @@ public class Dice {
         listOfDice.get(index).setImage(image);
     }
 
-    public void resetDice(){
+    public void resetDice() {
         for (int i = 0; i < diceCount; i++) {
             this.listOfDice.get(i).setImage(diceRoll0Image);
         }

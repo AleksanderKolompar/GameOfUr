@@ -11,12 +11,12 @@ import static gameofur.Position.START_TILE;
 
 public class Pawn {
     private final Button pawnButton;
-    private final Board.TileState color;
+    private final Board.Color color;
     private final Position position;
     private int tileNumber = START_TILE;
 
 
-    public Pawn(Image pawnImage, Board.TileState color) {
+    public Pawn(Image pawnImage, Board.Color color) {
         this.color = color;
         this.position = new Position(color);
         this.pawnButton = new Button("", new ImageView(pawnImage));
@@ -39,7 +39,7 @@ public class Pawn {
         this.pawnButton.setTranslateY(position.getPosY(tileNumber));
     }
 
-    public Board.TileState getColor() {
+    public Board.Color getColor() {
         return color;
     }
 
@@ -49,5 +49,13 @@ public class Pawn {
 
     public void setTileNumber(int tileNumber) {
         this.tileNumber = tileNumber;
+    }
+
+    public void disable() {
+        pawnButton.setDisable(false);
+    }
+
+    public void enable() {
+        pawnButton.setDisable(false);
     }
 }

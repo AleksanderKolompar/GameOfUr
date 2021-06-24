@@ -1,6 +1,6 @@
 gameofur/Board.java
  gameofur.Board
- gameofur.Board$TileState
+ gameofur.Board$Color
 gameofur/Position.java
  gameofur.Position
 gameofur/Dice.java

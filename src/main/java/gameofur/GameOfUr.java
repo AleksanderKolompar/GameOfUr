@@ -6,7 +6,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.LinkedList;
@@ -29,7 +28,7 @@ public class GameOfUr extends Application {
     private final GameEventHandler gameEventHandler = new GameEventHandler(board, dice);
 
 
-    public static final int numberOfPawns = 1;
+    public static final int numberOfPawns = 3;
 
     public static void main(String[] args) {
         launch(args);
@@ -42,27 +41,26 @@ public class GameOfUr extends Application {
         BackgroundImage backgroundImage = new BackgroundImage(boardImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
 
-
         grid.setBackground(background);
         board.addToGrid(grid);
         dice.addToGrid(grid);
 
-        dice.setOnAction(e -> gameEventHandler.diceEvent());
+        dice.setOnAction(e -> gameEventHandler.diceEvent(Board.Color.WHITE));
 
         for (int i = 0; i < numberOfPawns; i++) {
-            Pawn whitePawn = new Pawn(whitePawnImage, Board.TileState.WHITE);
-            Pawn blackPawn = new Pawn(blackPawnImage, Board.TileState.BLACK);
+            Pawn whitePawn = new Pawn(whitePawnImage, Board.Color.WHITE);
+            Pawn blackPawn = new Pawn(blackPawnImage, Board.Color.BLACK);
             whitePawnsList.add(whitePawn);
             blackPawnsList.add(blackPawn);
 
-            whitePawn.setOnAction(e -> gameEventHandler.pawnEvent(whitePawn));
+            //whitePawn.setOnAction(e -> gameEventHandler.pawnEvent(whitePawn));
             //blackPawn.setOnAction(e -> gameEventHandler.pawnEvent(blackPawn));
 
             whitePawn.addToGrid(grid);
             blackPawn.addToGrid(grid);
         }
 
-        Scene scene = new Scene(grid, 500, 760, Color.WHITE);
+        Scene scene = new Scene(grid, 500, 760, javafx.scene.paint.Color.WHITE);
 
 
         primaryStage.setTitle("Game of Ur");
@@ -80,7 +78,7 @@ public class GameOfUr extends Application {
 
             WritableImage img = new WritableImage(1, 1);
             PixelWriter pw = img.getPixelWriter();
-            Color color = Color.color(0, 0, 0, 1);
+            javafx.scene.paint.Color color = javafx.scene.paint.Color.color(0, 0, 0, 1);
 
             pw.setColor(0, 0, color);
             return img;

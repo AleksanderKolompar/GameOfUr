@@ -10,14 +10,14 @@ import java.util.Map;
 import static gameofur.GameOfUr.numberOfPawns;
 
 public class Board {
-    enum TileState {
+    enum Color {
         EMPTY, BLACK, WHITE
     }
 
-    private final Map<Coordinates, TileState> boardMap = new HashMap<>();
+    private final Map<Coordinates, Color> boardMap = new HashMap<>();
     private final List<Pawn> whitePawnsList;
     private final List<Pawn> blackPawnsList;
-    private final Label scoreLabel = new Label("Score");
+    //private final Label scoreLabel = new Label("Score");
     private final int xSize;
     private final int ySize;
     private int whiteScore = 0;
@@ -33,16 +33,16 @@ public class Board {
     }
 
     public void addToGrid(GridPane grid) {
-        grid.add(scoreLabel, 0, 0);
+        //grid.add(scoreLabel, 0, 0);
     }
 
-    public void incrementScore(TileState color) {
-        if (color == TileState.WHITE) {
+    public void incrementScore(Color color) {
+        if (color == Color.WHITE) {
             this.whiteScore++;
-        } else if (color == TileState.BLACK) {
+        } else if (color == Color.BLACK) {
             this.blackScore++;
         }
-        updateScore();
+        //updateScore();
     }
 
     public boolean checkGameEnd() {
@@ -55,11 +55,11 @@ public class Board {
         this.blackScore = 0;
     }
 
-    private void updateScore() {
-        scoreLabel.setText(blackScore + " " + whiteScore);
-    }
+//    private void updateScore() {
+//        scoreLabel.setText(blackScore + " " + whiteScore);
+//    }
 
-    public TileState getTileState(Coordinates coordinates) {
+    public Color getTileState(Coordinates coordinates) {
         return boardMap.get(coordinates);
     }
 
@@ -71,16 +71,16 @@ public class Board {
         return blackPawnsList;
     }
 
-    public void setTileState(Coordinates coordinates, TileState newState) {
+    public void setTileState(Coordinates coordinates, Color newState) {
         boardMap.replace(coordinates, newState);
     }
 
-    public void resetScoreLabel() {
-        this.scoreLabel.setText("0 0");
-    }
+//    public void resetScoreLabel() {
+//        this.scoreLabel.setText("0 0");
+//    }
 
     public boolean checkIfEmptyTile(Coordinates coordinates) {
-        return getTileState(coordinates) == (TileState.EMPTY);
+        return getTileState(coordinates) == (Color.EMPTY);
     }
 
     public void displayBoard() {
@@ -96,7 +96,7 @@ public class Board {
     public void emptyBoard() {
         for (int x = 1; x <= xSize; x++) {
             for (int y = 1; y <= ySize; y++) {
-                this.boardMap.put(new Coordinates(x, y), TileState.EMPTY);
+                this.boardMap.put(new Coordinates(x, y), Color.EMPTY);
             }
         }
     }
