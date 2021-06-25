@@ -25,10 +25,9 @@ public class GameOfUr extends Application {
     private final Board board = new Board(3, 8, whitePawnsList, blackPawnsList);
     private final Dice dice = new Dice(3, diceRoll0Image, diceRoll1Image);
     private final GridPane grid = new GridPane();
-    private final GameEventHandler gameEventHandler = new GameEventHandler(board, dice);
+    private final GameEventHandler gameEventHandler = new GameEventHandler(board, dice, grid);
 
-
-    public static final int numberOfPawns = 3;
+    public static final int numberOfPawns = 8;
 
     public static void main(String[] args) {
         launch(args);
@@ -42,7 +41,6 @@ public class GameOfUr extends Application {
         Background background = new Background(backgroundImage);
 
         grid.setBackground(background);
-        board.addToGrid(grid);
         dice.addToGrid(grid);
 
         dice.setOnAction(e -> gameEventHandler.diceEvent(Board.Color.WHITE));
@@ -52,27 +50,20 @@ public class GameOfUr extends Application {
             Pawn blackPawn = new Pawn(blackPawnImage, Board.Color.BLACK);
             whitePawnsList.add(whitePawn);
             blackPawnsList.add(blackPawn);
-
-            //whitePawn.setOnAction(e -> gameEventHandler.pawnEvent(whitePawn));
-            //blackPawn.setOnAction(e -> gameEventHandler.pawnEvent(blackPawn));
-
             whitePawn.addToGrid(grid);
             blackPawn.addToGrid(grid);
         }
-
         Scene scene = new Scene(grid, 500, 760, javafx.scene.paint.Color.WHITE);
-
-
         primaryStage.setTitle("Game of Ur");
         primaryStage.setScene(scene);
         primaryStage.show();
+
     }
 
     private Image loadImage(String fileName) {
         try {
             return new Image(GameOfUr.class.getClassLoader().getResourceAsStream(fileName));
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             System.out.println("Could not find: " + fileName);
             e.printStackTrace();
 
@@ -84,6 +75,4 @@ public class GameOfUr extends Application {
             return img;
         }
     }
-
-
 }

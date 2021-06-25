@@ -1,6 +1,5 @@
 package gameofur;
 
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 import java.util.HashMap;
@@ -17,7 +16,6 @@ public class Board {
     private final Map<Coordinates, Color> boardMap = new HashMap<>();
     private final List<Pawn> whitePawnsList;
     private final List<Pawn> blackPawnsList;
-    //private final Label scoreLabel = new Label("Score");
     private final int xSize;
     private final int ySize;
     private int whiteScore = 0;
@@ -32,32 +30,15 @@ public class Board {
         emptyBoard();
     }
 
-    public void addToGrid(GridPane grid) {
-        //grid.add(scoreLabel, 0, 0);
-    }
-
-    public void incrementScore(Color color) {
-        if (color == Color.WHITE) {
-            this.whiteScore++;
-        } else if (color == Color.BLACK) {
-            this.blackScore++;
+    public Board.Color getWinner() {
+        if (blackScore == numberOfPawns) {
+            return Color.BLACK;
+        } else if (whiteScore == numberOfPawns) {
+            return Color.WHITE;
+        } else {
+            return Color.EMPTY;
         }
-        //updateScore();
     }
-
-    public boolean checkGameEnd() {
-        return (blackScore == numberOfPawns) || (whiteScore == numberOfPawns);
-    }
-
-
-    public void resetScore() {
-        this.whiteScore = 0;
-        this.blackScore = 0;
-    }
-
-//    private void updateScore() {
-//        scoreLabel.setText(blackScore + " " + whiteScore);
-//    }
 
     public Color getTileState(Coordinates coordinates) {
         return boardMap.get(coordinates);
@@ -71,26 +52,11 @@ public class Board {
         return blackPawnsList;
     }
 
-    public void setTileState(Coordinates coordinates, Color newState) {
-        boardMap.replace(coordinates, newState);
-    }
-
-//    public void resetScoreLabel() {
-//        this.scoreLabel.setText("0 0");
-//    }
-
-    public boolean checkIfEmptyTile(Coordinates coordinates) {
-        return getTileState(coordinates) == (Color.EMPTY);
-    }
-
-    public void displayBoard() {
-        for (int i = 1; i <= 8; i++) {
-            System.out.print("|");
-            for (int j = 1; j <= 3; j++) {
-                System.out.print(" " + getTileState(new Coordinates(j, i)) + " |");
-            }
-            System.out.print("\n");
+    public int getScore(Color color) {
+        if (color == Color.WHITE) {
+            return whiteScore;
         }
+        return blackScore;
     }
 
     public void emptyBoard() {
@@ -101,5 +67,24 @@ public class Board {
         }
     }
 
+    public void incrementScore(Color color) {
+        if (color == Color.WHITE) {
+            this.whiteScore++;
+        } else if (color == Color.BLACK) {
+            this.blackScore++;
+        }
+    }
 
+    public void setTileState(Coordinates coordinates, Color newState) {
+        boardMap.replace(coordinates, newState);
+    }
+
+    public void resetScore() {
+        this.whiteScore = 0;
+        this.blackScore = 0;
+    }
+
+    public boolean checkIfEmptyTile(Coordinates coordinates) {
+        return getTileState(coordinates) == (Color.EMPTY);
+    }
 }

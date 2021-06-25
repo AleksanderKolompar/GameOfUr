@@ -29,5 +29,4 @@ public final class Coordinates {
     public int hashCode() {
         return Objects.hash(xCoordinate, yCoordinate);
     }
-
 }

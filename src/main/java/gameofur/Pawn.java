@@ -21,22 +21,7 @@ public class Pawn {
         this.position = new Position(color);
         this.pawnButton = new Button("", new ImageView(pawnImage));
         this.pawnButton.setStyle("-fx-background-color: transparent;");
-        //this.pawnButton.setOnAction(e -> pawnEvent());
         reposition(START_TILE);
-    }
-
-
-    public void setOnAction(EventHandler<ActionEvent> value) {
-        this.pawnButton.setOnAction(value);
-    }
-
-    public void addToGrid(GridPane grid) {
-        grid.add(pawnButton, 0, 0);
-    }
-
-    public void reposition(int tileNumber) {
-        this.pawnButton.setTranslateX(position.getPosX(tileNumber));
-        this.pawnButton.setTranslateY(position.getPosY(tileNumber));
     }
 
     public Board.Color getColor() {
@@ -47,15 +32,29 @@ public class Pawn {
         return tileNumber;
     }
 
+    public void setOnAction(EventHandler<ActionEvent> value) {
+        this.pawnButton.setOnAction(value);
+    }
+
     public void setTileNumber(int tileNumber) {
         this.tileNumber = tileNumber;
     }
 
-    public void disable() {
-        pawnButton.setDisable(false);
+    public void reposition(int tileNumber) {
+        this.pawnButton.setTranslateX(position.getPosX(tileNumber));
+        this.pawnButton.setTranslateY(position.getPosY(tileNumber));
     }
 
-    public void enable() {
-        pawnButton.setDisable(false);
+    public void positionOutside(int score) {
+        if (color == Board.Color.WHITE) {
+            this.pawnButton.setTranslateX(405);
+        } else {
+            this.pawnButton.setTranslateX(5);
+        }
+        this.pawnButton.setTranslateY(10 + (score * 30));
+    }
+
+    public void addToGrid(GridPane grid) {
+        grid.add(pawnButton, 0, 0);
     }
 }
