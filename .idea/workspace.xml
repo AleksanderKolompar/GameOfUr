@@ -14,12 +14,12 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/gameofur/GameOfUr.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/gameofur/GameOfUr.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gameofur/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameofur/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gameofur/Coordinates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameofur/Coordinates.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gameofur/Dice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameofur/Dice.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gameofur/GameEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameofur/GameEventHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gameofur/GameOfUr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameofur/GameOfUr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gameofur/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameofur/Pawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gameofur/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameofur/Position.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,19 +126,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Application.BlackJack" />
       <item itemvalue="Application.GameOfUr" />
@@ -164,6 +151,8 @@
       <workItem from="1623230363643" duration="12605000" />
       <workItem from="1623307399744" duration="141722000" />
       <workItem from="1624534949638" duration="13536000" />
+      <workItem from="1624890548077" duration="1615000" />
+      <workItem from="1624900248304" duration="4629000" />
     </task>
     <servers />
   </component>

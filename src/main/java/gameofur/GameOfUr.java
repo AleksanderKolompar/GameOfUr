@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 import java.util.LinkedList;
 import java.util.List;
 
-
 public class GameOfUr extends Application {
 
     private final Image boardImage = loadImage("UrBoard.jpg");
@@ -63,7 +62,7 @@ public class GameOfUr extends Application {
     private Image loadImage(String fileName) {
         try {
             return new Image(GameOfUr.class.getClassLoader().getResourceAsStream(fileName));
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             System.out.println("Could not find: " + fileName);
             e.printStackTrace();
 

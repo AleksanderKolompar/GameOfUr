@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Position {
-    public static final int START_TILE = 0;
+    public static final int START_TILE = 13;
     public static final int END_TILE = 15;
 
     private final List<Integer> listPosXwhite = new ArrayList<>(List.of(3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3));
@@ -37,7 +37,7 @@ public class Position {
         if (color == Board.Color.BLACK) {
             return listPosXblack;
         }
-        return new ArrayList<>(0);
+        return new ArrayList<>();
     }
 
     public int getCoordinateX(int tileNumber) {

@@ -1,7 +1,5 @@
 package gameofur;
 
-import javafx.scene.layout.GridPane;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,13 +48,6 @@ public class Board {
 
     public List<Pawn> getBlackPawnsList() {
         return blackPawnsList;
-    }
-
-    public int getScore(Color color) {
-        if (color == Color.WHITE) {
-            return whiteScore;
-        }
-        return blackScore;
     }
 
     public void emptyBoard() {

@@ -7,6 +7,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
+import java.util.List;
+
+import static gameofur.Position.END_TILE;
 import static gameofur.Position.START_TILE;
 
 public class Pawn {
@@ -14,7 +17,6 @@ public class Pawn {
     private final Board.Color color;
     private final Position position;
     private int tileNumber = START_TILE;
-
 
     public Pawn(Image pawnImage, Board.Color color) {
         this.color = color;
@@ -45,13 +47,21 @@ public class Pawn {
         this.pawnButton.setTranslateY(position.getPosY(tileNumber));
     }
 
-    public void positionOutside(int score) {
+    public void positionOutside(Board board) {
+        List<Pawn> list;
         if (color == Board.Color.WHITE) {
             this.pawnButton.setTranslateX(405);
+            list = board.getWhitePawnsList();
         } else {
             this.pawnButton.setTranslateX(5);
+            list = board.getBlackPawnsList();
         }
-        this.pawnButton.setTranslateY(10 + (score * 30));
+        int i = 0;
+        for (Pawn pawn : list) {
+            if (pawn.tileNumber == END_TILE) {
+                pawn.pawnButton.setTranslateY(10 + (i++ * 30));
+            }
+        }
     }
 
     public void addToGrid(GridPane grid) {

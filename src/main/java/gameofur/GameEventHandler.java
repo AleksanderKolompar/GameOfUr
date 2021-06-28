@@ -1,14 +1,13 @@
 package gameofur;
 
 import javafx.animation.PauseTransition;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.List;
-import java.util.Optional;
 
 import static gameofur.GameOfUr.numberOfPawns;
 import static gameofur.Position.END_TILE;
@@ -32,8 +31,7 @@ public class GameEventHandler {
     public void diceEvent(Board.Color color) {
         if (color == Board.Color.WHITE) {
             enableWhitePawns();
-
-            dice.getRollButton().setDisable(true);
+            dice.disableButton();
         }
         dice.setRollResult(dice.rollDice(), color);
         System.out.println(dice.getRollResult(color));
@@ -51,7 +49,7 @@ public class GameEventHandler {
                 board.setTileState(oldCoordinates, Board.Color.EMPTY);
                 pawn.setTileNumber(newTileNumber);
                 if (newTileNumber == END_TILE) {
-                    pawn.positionOutside(board.getScore(pawn.getColor()));
+                    pawn.positionOutside(board);
                     if (dice.getRollResult(pawn.getColor()) != 0) {
                         board.incrementScore(pawn.getColor());
                     }
@@ -64,30 +62,52 @@ public class GameEventHandler {
                 dice.resetWhiteRollResult();
             }
         }
-        if (pawn.getColor().equals(Board.Color.WHITE)) {
-            disableWhitePawns();
-            computerMove();
+        disableWhitePawns();
+        if (checkEnd()) {
+            dice.setOnAction(null);
+        } else {
+            if (pawn.getColor().equals(Board.Color.WHITE)) {
+                computerMove();
+            }
+            dice.enableButton();
         }
-        dice.reactivateButton();
     }
 
-    public void checkEnd() {
+    public boolean checkEnd() {
         Board.Color winner = board.getWinner();
-        if ((winner != Board.Color.EMPTY) && (pawn.getColor().equals(Board.Color.WHITE))) {
-            System.out.println(winner);
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Game finished");
-            alert.setHeaderText("And the winner is: " + winner);
-            alert.setContentText("Do you want to play again?");
 
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK) {
+        if ((winner != Board.Color.EMPTY)) {
+
+            Button resetButton = new Button("Reset");
+            Button exitButton = new Button("Exit");
+            Label winnerLabel = new Label("Winner is: " + winner + ". \nWould you like to play again?");
+
+            resetButton.setTranslateX(400);
+            resetButton.setTranslateY(300);
+            exitButton.setTranslateX(460);
+            exitButton.setTranslateY(300);
+            winnerLabel.setTranslateX(320);
+            winnerLabel.setTranslateY(270);
+
+            resetButton.setOnAction(e -> {
                 resetGame();
-            } else {
+                grid.getChildren().remove(resetButton);
+                grid.getChildren().remove(exitButton);
+                grid.getChildren().remove(winnerLabel);
+                dice.enableButton();
+            });
+
+            exitButton.setOnAction(e -> {
                 Stage stage = (Stage) grid.getScene().getWindow();
                 stage.close();
-            }
+            });
+
+            grid.add(resetButton, 0, 0);
+            grid.add(exitButton, 0, 0);
+            grid.add(winnerLabel, 0, 0);
+            return true;
         }
+        return false;
     }
 
     private boolean isValidMove(int newTileNumber, Coordinates coordinates, Board.Color color) {
@@ -99,7 +119,7 @@ public class GameEventHandler {
         }
         System.out.println("Invalid Move.");
         dice.setRollResult(0, color);
-        dice.reactivateButton();
+        dice.enableButton();
         return false;
     }
 
@@ -121,7 +141,6 @@ public class GameEventHandler {
     }
 
     private void computerMove() {
-        checkEnd();
         pauseTransition.setOnFinished(event1 ->
         {
             diceEvent(Board.Color.BLACK);
@@ -135,12 +154,11 @@ public class GameEventHandler {
                 Pawn pawn = board.getBlackPawnsList().get(pawnNumber);
                 pawn.setTileNumber(newTileNumber);
                 pawnEvent(pawn);
-                dice.reactivateButton();
+                dice.enableButton();
             });
             pauseTransition.play();
         });
         pauseTransition.play();
-        checkEnd();
     }
 
     public int findValidBlackMove(int start, int end, Board.Color color) {
@@ -153,7 +171,7 @@ public class GameEventHandler {
         if (newTileNumber <= END_TILE) {
             Coordinates coordinates = new Coordinates(newTileNumber, color);
             if (isValidMove(newTileNumber, coordinates, color)) {
-                System.out.println("index: " + start);
+                System.out.println("Black pawn index: " + start);
                 return start;
             }
         }
@@ -165,15 +183,16 @@ public class GameEventHandler {
             Pawn whitePawn = board.getWhitePawnsList().get(i);
             Pawn blackPawn = board.getBlackPawnsList().get(i);
 
-            whitePawn.setTileNumber(0);
-            blackPawn.setTileNumber(0);
+            whitePawn.setTileNumber(START_TILE);
+            blackPawn.setTileNumber(START_TILE);
 
-            whitePawn.reposition(0);
-            blackPawn.reposition(0);
+            whitePawn.reposition(START_TILE);
+            blackPawn.reposition(START_TILE);
         }
         board.emptyBoard();
         board.resetScore();
         dice.resetDice();
+        dice.setOnAction(e -> diceEvent(Board.Color.WHITE));
     }
 
     private void disableWhitePawns() {

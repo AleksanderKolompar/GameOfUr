@@ -11,10 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class Dice {
     private final int repositionXWhite = 400;
-    private final int repositionXBlack = 0;
     private final int repositionY = 650;
 
     private final Image diceRoll0Image;
@@ -39,9 +37,6 @@ public class Dice {
         }
     }
 
-    public Button getRollButton() {
-        return rollButton;
-    }
 
     public int getRollResult(Board.Color color) {
         if (color == Board.Color.WHITE) {
@@ -55,17 +50,16 @@ public class Dice {
         this.rollButton.setOnAction(value);
     }
 
-
     public void setRollResult(int rollResult, Board.Color color) {
         if (color == Board.Color.WHITE) {
             this.whiteRollResult = rollResult;
             for (int i = 0; i < diceCount; i++) {
                 listOfDice.get(i).setTranslateX(repositionXWhite);
             }
-
         } else {
             this.blackRollResult = rollResult;
             for (int i = 0; i < diceCount; i++) {
+                int repositionXBlack = 0;
                 listOfDice.get(i).setTranslateX(repositionXBlack);
             }
         }
@@ -98,8 +92,12 @@ public class Dice {
         return result;
     }
 
-    public void reactivateButton() {
+    public void enableButton() {
         rollButton.setDisable(false);
+    }
+
+    public void disableButton() {
+        rollButton.setDisable(true);
     }
 
     public void addToGrid(GridPane grid) {
